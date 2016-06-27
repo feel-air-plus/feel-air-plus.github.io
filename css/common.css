@@ -1,1 +1,1 @@
-@import url(pc.css) screen and (min-width: 769px);@import url(tablet.css) screen and (max-width: 768px);@import url(smart.css) screen and (max-width: 640px);body{	background-color: #F8F8FF;	font-family:'Lucida Grande','Hiragino Kaku Gothic ProN',Meiryo, sans-serif;}
+@import url(reset.css);@import url(pc.css) screen and (min-width: 769px);@import url(tablet.css) screen and (max-width: 768px);@import url(smart.css) screen and (max-width: 640px);body{	background-color: #F8F8FF;	font-family:'Lucida Grande','Hiragino Kaku Gothic ProN',Meiryo, sans-serif;}
