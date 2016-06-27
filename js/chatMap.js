@@ -5,15 +5,15 @@ var chatDataStore = milkcocoa.dataStore("chat");
 window.onload = function(){
     var lat = "";
     var lng = "";
-    var map = new GMaps({
-        div: "#map",//id名
-        lat: lat,//緯度
-        lng: lng,//経度
-        zoom: 18,//縮尺
-        panControl : false,//???
-        streetViewControl : false,//ストリートビュー表示
-        overviewMapControl: false//???
-    });
+    // var map = new GMaps({
+    //     div: "#map",//id名
+    //     lat: lat,//緯度
+    //     lng: lng,//経度
+    //     zoom: 18,//縮尺
+    //     panControl : false,//???
+    //     streetViewControl : false,//ストリートビュー表示
+    //     overviewMapControl: false//???
+    // });
     //画面描画時に現在地を取得
     // this.getGeolocate();
 
