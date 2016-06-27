@@ -3,24 +3,25 @@ var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
 
 window.onload = function(){
-    var lat = "";
-    var lng = "";
-    var map = new GMaps({
-        div: "#map",//id名
-        lat: lat,//緯度
-        lng: lng,//経度
-        zoom: 18,//縮尺
-        panControl : false,//???
-        streetViewControl : false,//ストリートビュー表示
-        overviewMapControl: false//???
-    });
-    //画面描画時に現在地を取得
-    this.getGeolocate();
-
-    setInterval(function(){
-        //10秒ごとに位置情報送信
-        this.getGeolocate();
-    },10000);
+        var lat = "";
+        var lng = "";
+        var map = new GMaps({
+            div: "#map",//id名
+            lat: lat,//緯度
+            lng: lng,//経度
+            zoom: 18,//縮尺
+            panControl : false,//???
+            streetViewControl : false,//ストリートビュー表示
+            overviewMapControl: false//???
+        });
+        setTimeout(function(){
+        //画面描画時に現在地を取得
+            this.getGeolocate();
+        },3000);
+        setInterval(function(){
+            //10秒ごとに位置情報送信
+            this.getGeolocate();
+        },10000);
 
     locationDataStore.on('send', function(data) {
         var lat = data.value.lat, lng = data.value.lng, userId = data.value.userId;
