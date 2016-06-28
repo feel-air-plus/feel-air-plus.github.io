@@ -2,10 +2,7 @@ var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
 
-// google.maps.event.addDomListener(window, "load", initialize);
-
-// window.onload = function(){
-function start() {
+window.onload = function(){
     var lat = "";
     var lng = "";
     var map = new GMaps({
