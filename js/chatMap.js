@@ -96,96 +96,83 @@ function postMessage(){
     )
 };
 
-$(function() {
-    chatDataStore.on("push", function(e) {
-        var user = e.value.userId;
-        if($('.'+user).text()){
-            //同一ユーザが既に投稿済みの文言を削除する
-          $('.'+user).remove();
-        }
-        var userMessage = $('<div class='
-          + user
-          + '>'
-          + '</div>').appendTo($("#chatMessage")).show();
-        userMessage.css({
-        })
-        $('.'+user).addClass("overlay");
-        $('.'+user).text(user+": "+e.value.message);
-    });
-
-    dateFormatYYYYMMDDHHNNSS = function(date){
-        var YYYY = date.getYear();
-        if (YYYY < 1900){YYYY += 1900}
-        var MM = String(date.getMonth()+1);
-        if (MM.length < 2){MM = "0" + MM}
-        var DD = String(date.getDate());
-        if (DD.length < 2){DD = "0" + DD}
-        var HH = String(date.getHours());
-        if (HH.length < 2){HH = "0" + HH}
-        var NN = String(date.getMinutes());
-        if (NN.length < 2){NN = "0" + NN}
-        var SS = String(date.getSeconds());
-        if (SS.length < 2){SS = "0" + SS}
-        return Number(String(YYYY) + MM + DD + HH + NN + SS);
+chatDataStore.on("push", function(e) {
+    var user = e.value.userId;
+    if($('.'+user).text()){
+        //同一ユーザが既に投稿済みの文言を削除する
+      $('.'+user).remove();
     }
-    //チャットデータストア内の項目を一覧で取得
-    chatDataStore.stream().size(20).sort("desc").next(function(err, datas) {
-        datas.forEach(function(data) {
-            renderMessage(data);
-        });
-    });
-
-    chatDataStore.on("push", function(e) {
-        // チャット内容変更のイベントを受け取った際に、チャットメッセージを表示
-        renderMessage(e);
-    });
-
-    function renderMessage(msg) {
-        //取得したチャットデータストア内の項目一覧を画面上に表示
-
-        // var last_message = "summary";
-        // //取得したチャットデータストア内の項目一覧を画面上に表示
-        // //TODO:テーブルに書き換える
-        // var message_html = '<p class="post-text">' + msg.value.message + '</p>';
-        // var user_html    = '<p class="post-user">' + msg.value.userId + '</p>';
-        // var date_html    = '<p class="post-date">'+msg.value.date+'</p>';
-        // $("#"+last_message).after('<div id="'+msg.id+'" class="post">'
-        //     + user_html
-        //     + " : "
-        //     + message_html
-        //     + date_html
-        //     +'</div>');
-        // last_message = msg.id;
-
-        // ユーザごとにアイコンや表示を変更
-        // TODO:とりあえずベタ書き。後で動的にする。
-        if(msg.value.userId == "user1"){
-            var icon = "azarashi.png";
-            var classes = "chat-talk mytalk";
-            var target = "myicon";
-        }else{
-            var icon = "hakase.png";
-            var classes = "chat-talk";
-            var target = "tartgeticon";
-        }
-
-        // TODO:もう少し綺麗に実装できるはず
-        var last_message = "chat-frame";
-        $("#"+last_message).prepend(
-        '<p class="'
-        + classes
-        + '">'
-        + '<span class="talk-icon">'
-        + '<img src="../img/'
-        + icon
-        + '"'
-        + 'alt="'
-        + target
-        + '"/>'
-        + '</span>'
-        + '<span class="talk-content">'
-        + msg.value.message
-        + '</span>'
-        + '</p>');
-    };
+    var userMessage = $('<div class='
+      + user
+      + '>'
+      + '</div>').appendTo($("#chatMessage")).show();
+    userMessage.css({
+    })
+    $('.'+user).addClass("overlay");
+    $('.'+user).text(user+": "+e.value.message);
 });
+
+dateFormatYYYYMMDDHHNNSS = function(date){
+    var YYYY = date.getYear();
+    if (YYYY < 1900){YYYY += 1900}
+    var MM = String(date.getMonth()+1);
+    if (MM.length < 2){MM = "0" + MM}
+    var DD = String(date.getDate());
+    if (DD.length < 2){DD = "0" + DD}
+    var HH = String(date.getHours());
+    if (HH.length < 2){HH = "0" + HH}
+    var NN = String(date.getMinutes());
+    if (NN.length < 2){NN = "0" + NN}
+    var SS = String(date.getSeconds());
+    if (SS.length < 2){SS = "0" + SS}
+    return Number(String(YYYY) + MM + DD + HH + NN + SS);
+}
+
+//チャットデータストア内の項目を一覧で取得
+chatDataStore.stream().size(20).sort("desc").next(function(err, datas) {
+    datas.forEach(function(data) {
+        renderMessage(data);
+    });
+});
+
+chatDataStore.on("push", function(e) {
+    // チャット内容変更のイベントを受け取った際に、チャットメッセージを表示
+    renderMessage(e);
+
+});
+
+function renderMessage(msg) {
+    //取得したチャットデータストア内の項目一覧を画面上に表示
+
+    // ユーザごとにアイコンや表示を変更
+    // TODO:とりあえずベタ書き。後で動的にする。
+    if(msg.value.userId == "user1"){
+        var icon = "azarashi.png";
+        var classes = "chat-talk mytalk";
+        var target = "myicon";
+    }else{
+        var icon = "hakase.png";
+        var classes = "chat-talk";
+        var target = "tartgeticon";
+    }
+
+    // TODO:もう少し綺麗に実装できるはず
+    var last_message = "chat-frame";
+    $("#"+last_message).prepend(
+    '<p class="'
+    + classes
+    + '">'
+    + '<span class="talk-icon">'
+    + '<img src="../img/'
+    + icon
+    + '"'
+    + 'alt="'
+    + target
+    + '"/>'
+    + '</span>'
+    + '<span class="talk-content">'
+    + msg.value.message
+    + '</span>'
+    + '</p>');
+};
+
