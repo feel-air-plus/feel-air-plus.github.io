@@ -41,7 +41,7 @@ window.onload = function(){
             title: 'I’m here',
             icon:img,
             click: function(e) {
-            },
+            }
         });
         map.drawOverlay({
             lat: lat,
@@ -49,7 +49,7 @@ window.onload = function(){
             layer: 'overlayLayer',
             content: '<div id="chatMessage"></div>',
             verticalAlign: 'top',
-            horizontalAlign: 'center',
+            horizontalAlign: 'center'
         });
     });
 };
@@ -61,7 +61,7 @@ function getGeolocate(){
             locationDataStore.send({
                 lat : position.coords.latitude,
                 lng : position.coords.longitude,
-                userId : userId,
+                userId : userId
             });
         },
         error: function(error) {
