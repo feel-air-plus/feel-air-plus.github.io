@@ -6,8 +6,8 @@ google.maps.event.addDomListener(window, "load", initialize);
 
 // window.onload = function(){
 function initialize() {
-    var lat = "";
-    var lng = "";
+    var lat = 35.710285;
+    var lng = 139.77714;
     var map = new GMaps({
         div: "#map",//id名
         lat: lat,//緯度
