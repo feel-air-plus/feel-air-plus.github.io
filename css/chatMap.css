@@ -1,3 +1,6 @@
+#container{
+    background-color: #D8F3F0;
+}
 #map {
     display:block;
     width:100%;
@@ -8,26 +11,49 @@
     box-shadow:0px 5px 20px #ccc;
 }
 .overlay{
+    position: relative;
     display:inline-block;
     text-align:center;
     color:#fff;
     font-size:10px;
     line-height:20px;
-    opacity:0.7;
+    opacity:0.6;
     background:#4477aa;
-    border-radius:4px;
-    box-shadow:2px 2px 10px #333;
+    border-radius:2px;
     text-shadow:1px 1px 1px #666;
     padding:0 4px;
 }
+
+.overlay:after, .overlay:before {
+    right: 100%;
+    top: 65%;
+    border: solid transparent;
+    content:  "";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    opacity:0.6;
+}
+
+.overlay:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-right-color: #4477aa;
+    border-width: 5px;
+    margin-top: -5px;
+}
+.overlay:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-right-color: #4477aa;
+    border-width: 5px;
+    margin-top: -5px;
+}
+
 .wrapper{
     display: -webkit-flex;
     display: flex;
 }
 .mapArea{
-/*  box-shadow: 0 0 20px #999;
-  box-shadow: 0 0 20px;
-  padding: 10px;*/
     border-radius: 2px;
 }
 .input-message {
