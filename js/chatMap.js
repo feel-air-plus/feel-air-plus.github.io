@@ -2,7 +2,10 @@ var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
 
-window.onload = function(){
+google.maps.event.addDomListener(window, "load", initialize);
+
+// window.onload = function(){
+function initialize() {
     var lat = "";
     var lng = "";
     var map = new GMaps({
@@ -29,9 +32,9 @@ window.onload = function(){
         //現時点で実装されていないので、一旦マップ画面でユーザを選択させ、
         //ユーザに応じて画像を切り替える
         if(userId == "user1"){
-            var img = '../img/azarashi.png';            
+            var img = './img/azarashi.png';            
         }else{
-            var img = '../img/hakase.png';
+            var img = './img/hakase.png';
         }
         map.removeMarkers();
         map.setCenter(lat, lng);
@@ -176,7 +179,7 @@ $(function() {
         + classes
         + '">'
         + '<span class="talk-icon">'
-        + '<img src="../img/'
+        + '<img src="./img/'
         + icon
         + '"'
         + 'alt="'
