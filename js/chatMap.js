@@ -1,6 +1,8 @@
 var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
+var gruopDataStore = milkcocoa.dataStore("group");
+var userDataStore = milkcocoa.dataStore("user");
 
 window.onload = function(){
     var lat = "";
@@ -25,9 +27,7 @@ window.onload = function(){
     locationDataStore.on('send', function(data) {
         var lat = data.value.lat, lng = data.value.lng, userId = data.value.userId;
 
-        //本来、ユーザ情報はマップ画面前に選択済みの想定だが、
-        //現時点で実装されていないので、一旦マップ画面でユーザを選択させ、
-        //ユーザに応じて画像を切り替える
+        //TODO:選択されたユーザ・アイコンに応じた表示切替
         if(userId == "user1"){
             var img = './img/azarashi.png';            
         }else{
@@ -85,7 +85,7 @@ function postMessage(){
         { 
             userId  : userId,
             message : chatMessage,
-            date    : dateFormatYYYYMMDDHHNNSS(new Date())
+            date    : new Date()
         },
         function(err, pushed){
             // console.log("chatMessage pushed");
@@ -113,21 +113,6 @@ $(function() {
         $('.'+user).text(user+": "+e.value.message);
     });
 
-    dateFormatYYYYMMDDHHNNSS = function(date){
-        var YYYY = date.getYear();
-        if (YYYY < 1900){YYYY += 1900}
-        var MM = String(date.getMonth()+1);
-        if (MM.length < 2){MM = "0" + MM}
-        var DD = String(date.getDate());
-        if (DD.length < 2){DD = "0" + DD}
-        var HH = String(date.getHours());
-        if (HH.length < 2){HH = "0" + HH}
-        var NN = String(date.getMinutes());
-        if (NN.length < 2){NN = "0" + NN}
-        var SS = String(date.getSeconds());
-        if (SS.length < 2){SS = "0" + SS}
-        return Number(String(YYYY) + MM + DD + HH + NN + SS);
-    }
     //チャットデータストア内の項目を一覧で取得
     chatDataStore.stream().size(20).sort("desc").next(function(err, datas) {
         datas.forEach(function(data) {
@@ -142,50 +127,39 @@ $(function() {
 
     function renderMessage(msg) {
         //取得したチャットデータストア内の項目一覧を画面上に表示
-
-        // var last_message = "summary";
-        // //取得したチャットデータストア内の項目一覧を画面上に表示
-        // //TODO:テーブルに書き換える
-        // var message_html = '<p class="post-text">' + msg.value.message + '</p>';
-        // var user_html    = '<p class="post-user">' + msg.value.userId + '</p>';
-        // var date_html    = '<p class="post-date">'+msg.value.date+'</p>';
-        // $("#"+last_message).after('<div id="'+msg.id+'" class="post">'
-        //     + user_html
-        //     + " : "
-        //     + message_html
-        //     + date_html
-        //     +'</div>');
-        // last_message = msg.id;
-
         // ユーザごとにアイコンや表示を変更
         // TODO:とりあえずベタ書き。後で動的にする。
+        // ユーザが選択しているグループのチャット情報のみ表示させる
         if(msg.value.userId == "user1"){
-            var icon = "azarashi.png";
+            var icon = "buta.png";
             var classes = "chat-talk mytalk";
             var target = "myicon";
         }else{
-            var icon = "hakase.png";
+            var icon = "tanuki.png";
             var classes = "chat-talk";
             var target = "tartgeticon";
         }
 
         // TODO:もう少し綺麗に実装できるはず
         var last_message = "chat-frame";
-        $("#"+last_message).prepend(
+        $('#chat-frame').prepend(
         '<p class="'
         + classes
-        + '">'
-        + '<span class="talk-icon">'
+        + '"><span class="talk-icon">'
         + '<img src="./img/'
         + icon
         + '"'
         + 'alt="'
         + target
-        + '"/>'
-        + '</span>'
+        + '"/></span>'
         + '<span class="talk-content">'
         + msg.value.message
-        + '</span>'
-        + '</p>');
+        + '</span></p>');
     };
+
+    //グループデータストア内の項目を一覧で取得
+    groupDataStore.stream().sort("desc").next(function(err, datas) {
+        // グループ情報を関数で渡す
+    });
+
 });
