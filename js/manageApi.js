@@ -9,19 +9,23 @@ window.onload = function(){
     var groupList = [
         {
             groupId:1,
-            groupName:"group1"
+            groupName:"group1",
+            limit:4
         },
         {
             groupId:2,
-            groupName:"group2"
+            groupName:"group2",
+            limit:4
         },
         {
             groupId:3,
-            groupName:"group3"
+            groupName:"group3",
+            limit:4
         },
         {
             groupId:4,
-            groupName:"group4"
+            groupName:"group4",
+            limit:4
         }
     ];
 
@@ -68,7 +72,8 @@ window.onload = function(){
         groupDataStore.push(
             { 
                 groupId  : groupList[i].groupId,
-                groupName : groupList[i].groupName
+                groupName : groupList[i].groupName,
+                limit : groupList[i].limit
             },
             function(err, pushed){
                 // console.log("chatMessage pushed");

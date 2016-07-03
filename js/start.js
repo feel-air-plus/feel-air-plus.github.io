@@ -40,9 +40,10 @@ function createIconRow(data){
     $('.icon-radio-row').append('<label class='
     + iconName
     + '>'
-    + '<input type="radio" name="'
-    + iconName
-    + '"></label>');
+    + '<input type="radio" name="iconStatus"'
+    + 'value="'
+    + data.value.iconId
+    + '" ></label>');
     $('.'+iconName).addClass("crobd");
     $('.'+iconName).css('background', 'url('
     + iconUrl
@@ -51,6 +52,10 @@ function createIconRow(data){
 
 function enterChatMap() {
     alert("ボタン押下");
+    var userName = $(".input__field")[0].value;
+    var selectedGroup = $(".selectgroup")[0].value;
+    var selectedIcon = $("input[name='iconStatus']:checked").val();
+
         // 決定ボタン(仮)押下時
         // 　○選択しているグループの入室上限チェック
         // 　 ・上限を超えている場合
