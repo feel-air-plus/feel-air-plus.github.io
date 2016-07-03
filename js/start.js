@@ -2,12 +2,14 @@ var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var groupDataStore = milkcocoa.dataStore("group");
 var userDataStore = milkcocoa.dataStore("user");
 var iconDataStore = milkcocoa.dataStore("icon");
+var groupList;
 
 window.onload = function(){
 
     // 画面描画時
     // グループデータストア内の項目を一覧で取得
     groupDataStore.stream().sort("desc").next(function(err, datas) {
+        groupList = datas;
         // 取得したグループ情報を画面のセレクトボックスに反映
         datas.forEach(function(data) {
             createGroupRow(data);
@@ -52,16 +54,26 @@ function createIconRow(data){
 
 function enterChatMap() {
     alert("ボタン押下");
+    var groupEnterLimit = 4;
     var userName = $(".input__field")[0].value;
     var selectedGroup = $(".selectgroup")[0].value;
     var selectedIcon = $("input[name='iconStatus']:checked").val();
 
+    // 選択しているグループの入室上限チェック
+    for(var i=0;i<groupList.length;i++){
+        if(groupList[i].value.groupName==selectedGroup){
+            if(groupList[i].value.count == groupEnterLimit){
+              alert("入室上限なり。");
+            }else{
+                // 入室上限を+1
+                var num = groupList[i].value.count + 1;
+                groupDataStore.set(groupList[i].id, { 'count' : num});
+            }
+        }
+    }
+
         // 決定ボタン(仮)押下時
         // 　○選択しているグループの入室上限チェック
-        // 　 ・上限を超えている場合
-        // 　　　○エラー文言表示
-        // 　 ・上限を超えていない場合
-        // 　　　○後続処理
 
         // 　○入力されたユーザ名上限チェック
         // 　 ・上限を超えている場合

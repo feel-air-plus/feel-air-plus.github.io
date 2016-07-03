@@ -10,22 +10,22 @@ window.onload = function(){
         {
             groupId:1,
             groupName:"group1",
-            limit:4
+            count:0
         },
         {
             groupId:2,
             groupName:"group2",
-            limit:4
+            count:0
         },
         {
             groupId:3,
             groupName:"group3",
-            limit:4
+            count:0
         },
         {
             groupId:4,
             groupName:"group4",
-            limit:4
+            count:0
         }
     ];
 
@@ -73,7 +73,7 @@ window.onload = function(){
             { 
                 groupId  : groupList[i].groupId,
                 groupName : groupList[i].groupName,
-                limit : groupList[i].limit
+                count : groupList[i].count
             },
             function(err, pushed){
                 // console.log("chatMessage pushed");
