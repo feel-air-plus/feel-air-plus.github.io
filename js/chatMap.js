@@ -1,7 +1,7 @@
 var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
-var gruopDataStore = milkcocoa.dataStore("group");
+var groupDataStore = milkcocoa.dataStore("group");
 var userDataStore = milkcocoa.dataStore("user");
 
 window.onload = function(){
@@ -56,6 +56,8 @@ window.onload = function(){
 
 function getGeolocate(){
     var userId = $("#userId")[0].value;
+    // var userId = sessionStorage.getItem('userId');
+    // var userData = getUserDataByUserId(userId);
     GMaps.geolocate({
         success: function(position) {
             locationDataStore.send({
@@ -77,6 +79,7 @@ function postMessage(){
     var textArea = document.getElementById("input-message");
     var chatMessage = textArea.value;
     var userId = $("#userId")[0].value;
+    // var userId = sessionStorage.getItem('userId');
     textArea.value = "";
     if(chatMessage == "" || userId == ""){
         return;
