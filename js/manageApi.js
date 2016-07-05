@@ -1,9 +1,10 @@
 var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var groupDataStore = milkcocoa.dataStore("group");
+var userDataStore = milkcocoa.dataStore("user");
 var iconDataStore = milkcocoa.dataStore("icon");
 
 window.onload = function(){
-    alert("refresh group and icon DataStore!!!");
+    alert("refresh group and user and icon DataStore!!!");
     // グループとアイコンのデータストアをクリア＆作成する
 
     var groupList = [
@@ -60,6 +61,14 @@ window.onload = function(){
         });
     });
 
+    // ユーザデータストア内の項目を一覧で取得
+    userDataStore.stream().sort("desc").next(function(err, datas) {
+        // 取得したグループ情報を削除
+        datas.forEach(function(data) {
+            userDataStore.remove(data.id);
+        });
+    });
+
     // アイコンデータストア内の項目を一覧で取得
     iconDataStore.stream().sort("desc").next(function(err, datas) {
         // 取得したアイコン情報を削除
@@ -70,7 +79,7 @@ window.onload = function(){
 
     for(i=0;i<groupList.length;i++){
         groupDataStore.push(
-            { 
+            {
                 groupId  : groupList[i].groupId,
                 groupName : groupList[i].groupName,
                 count : groupList[i].count
@@ -86,7 +95,7 @@ window.onload = function(){
 
     for(i=0;i<iconList.length;i++){
         iconDataStore.push(
-            { 
+            {
                 iconId  : iconList[i].iconId,
                 iconName : iconList[i].iconName,
                 url : iconList[i].url,
