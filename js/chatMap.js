@@ -30,13 +30,14 @@ window.onload = function(){
 
     locationDataStore.on('send', function(data) {
         var lat = data.value.lat, lng = data.value.lng, userId = data.value.userId;
-
-        //TODO:選択されたユーザ・アイコンに応じた表示切替
-        if(userId == "user1"){
-            var img = './img/azarashi.png';            
-        }else{
-            var img = './img/hakase.png';
+        var iconList = JSON.parse(localStorage.getItem('iconData'));
+        var icon;
+        for(var i=0;i<iconList.length;i++){
+            if(userInfo.iconId == iconList[i].value.iconId){
+                icon = iconList[i].value.url;
+            }
         }
+        var img = './img/'+icon;
         map.removeMarkers();
         map.setCenter(lat, lng);
         map.addMarker({
