@@ -33,22 +33,22 @@ window.onload = function(){
         {
             iconId:1,
             iconName:"hakase",
-            url:"./img/hakase.png"
+            url:"hakase.png"
         },
         {
             iconId:2,
             iconName:"azarashi",
-            url:"./img/azarashi.png"
+            url:"azarashi.png"
         },
         {
             iconId:3,
             iconName:"buta",
-            url:"./img/buta.png"
+            url:"buta.png"
         },
         {
             iconId:4,
             iconName:"tanuki",
-            url:"./img/tanuki.png"
+            url:"tanuki.png"
         }
     ];
 

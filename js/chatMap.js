@@ -3,8 +3,12 @@ var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
 var groupDataStore = milkcocoa.dataStore("group");
 var userDataStore = milkcocoa.dataStore("user");
+var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 
 window.onload = function(){
+    var userId = userInfo.userId;
+    setUserDataByUserId(userId);
+    setIconData();
     var lat = "";
     var lng = "";
     var map = new GMaps({
@@ -17,11 +21,11 @@ window.onload = function(){
         overviewMapControl: false//???
     });
     //画面描画時に現在地を取得
-    this.getGeolocate();
+    this.getGeolocate(userId);
 
     setInterval(function(){
         //10秒ごとに位置情報送信
-        this.getGeolocate();
+        this.getGeolocate(userId);
     },10000);
 
     locationDataStore.on('send', function(data) {
@@ -54,10 +58,7 @@ window.onload = function(){
     });
 };
 
-function getGeolocate(){
-    var userId = $("#userId")[0].value;
-    // var userId = sessionStorage.getItem('userId');
-    // var userData = getUserDataByUserId(userId);
+function getGeolocate(userId){
     GMaps.geolocate({
         success: function(position) {
             locationDataStore.send({
@@ -78,8 +79,9 @@ function getGeolocate(){
 function postMessage(){
     var textArea = document.getElementById("input-message");
     var chatMessage = textArea.value;
-    var userId = $("#userId")[0].value;
-    // var userId = sessionStorage.getItem('userId');
+    var userId = userInfo.userId;
+    var groupId = userInfo.groupId;
+    var iconId = userInfo.iconId;
     textArea.value = "";
     if(chatMessage == "" || userId == ""){
         return;
@@ -87,7 +89,9 @@ function postMessage(){
     chatDataStore.push(
         { 
             userId  : userId,
+            groupId : groupId,
             message : chatMessage,
+            iconId  : iconId,
             date    : new Date()
         },
         function(err, pushed){
@@ -119,7 +123,10 @@ $(function() {
     //チャットデータストア内の項目を一覧で取得
     chatDataStore.stream().size(20).sort("desc").next(function(err, datas) {
         datas.forEach(function(data) {
-            renderMessage(data);
+            var groupId =  userInfo.groupId;
+            if(groupId == data.value.groupId){
+                renderMessage(data);                
+            };
         });
     });
 
@@ -130,21 +137,23 @@ $(function() {
 
     function renderMessage(msg) {
         //取得したチャットデータストア内の項目一覧を画面上に表示
-        // ユーザごとにアイコンや表示を変更
-        // TODO:とりあえずベタ書き。後で動的にする。
-        // ユーザが選択しているグループのチャット情報のみ表示させる
-        if(msg.value.userId == "user1"){
-            var icon = "buta.png";
+        // ユーザが入室しているグループのチャット情報のみ表示させる
+        var iconList = JSON.parse(localStorage.getItem('iconData'));
+        var icon;
+        for(var i=0;i<iconList.length;i++){
+            if(msg.value.iconId == iconList[i].value.iconId){
+                icon = iconList[i].value.url;
+            }
+        }
+
+        if(msg.value.userId == userInfo.userId){
             var classes = "chat-talk mytalk";
             var target = "myicon";
         }else{
-            var icon = "tanuki.png";
             var classes = "chat-talk";
             var target = "tartgeticon";
         }
 
-        // TODO:もう少し綺麗に実装できるはず
-        var last_message = "chat-frame";
         $('#chat-frame').prepend(
         '<p class="'
         + classes
@@ -159,10 +168,4 @@ $(function() {
         + msg.value.message
         + '</span></p>');
     };
-
-    //グループデータストア内の項目を一覧で取得
-    groupDataStore.stream().sort("desc").next(function(err, datas) {
-        // グループ情報を関数で渡す
-    });
-
 });
