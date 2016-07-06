@@ -2,12 +2,12 @@ var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var groupDataStore = milkcocoa.dataStore("group");
 var userDataStore = milkcocoa.dataStore("user");
 var iconDataStore = milkcocoa.dataStore("icon");
+var groupList;
+var iconList;
 
 window.onload = function(){
-    alert("refresh group and user and icon DataStore!!!");
-    // グループとアイコンのデータストアをクリア＆作成する
 
-    var groupList = [
+    groupList = [
         {
             groupId:1,
             groupName:"group1",
@@ -30,7 +30,7 @@ window.onload = function(){
         }
     ];
 
-    var iconList = [
+    iconList = [
         {
             iconId:1,
             iconName:"hakase",
@@ -52,6 +52,9 @@ window.onload = function(){
             url:"tanuki.png"
         }
     ];
+};
+
+function deleteGroupData(){
 
     // グループデータストア内の項目を一覧で取得
     groupDataStore.stream().sort("desc").next(function(err, datas) {
@@ -60,23 +63,8 @@ window.onload = function(){
             groupDataStore.remove(data.id);
         });
     });
-
-    // ユーザデータストア内の項目を一覧で取得
-    userDataStore.stream().sort("desc").next(function(err, datas) {
-        // 取得したグループ情報を削除
-        datas.forEach(function(data) {
-            userDataStore.remove(data.id);
-        });
-    });
-
-    // アイコンデータストア内の項目を一覧で取得
-    iconDataStore.stream().sort("desc").next(function(err, datas) {
-        // 取得したアイコン情報を削除
-        datas.forEach(function(data) {
-            iconDataStore.remove(data.id);
-        });
-    });
-
+}
+function createGroupData(){
     for(i=0;i<groupList.length;i++){
         groupDataStore.push(
             {
@@ -92,7 +80,20 @@ window.onload = function(){
             }
         )
     }
+}
 
+function deleteIconData(){
+
+   // アイコンデータストア内の項目を一覧で取得
+    iconDataStore.stream().sort("desc").next(function(err, datas) {
+        // 取得したアイコン情報を削除
+        datas.forEach(function(data) {
+            iconDataStore.remove(data.id);
+        });
+    });
+};
+
+function createIconData(){
     for(i=0;i<iconList.length;i++){
         iconDataStore.push(
             {
@@ -108,4 +109,17 @@ window.onload = function(){
             }
         )
     }
-};
+}
+
+function deleteUserData(){
+    // ユーザデータストア内の項目を一覧で取得
+    userDataStore.stream().sort("desc").next(function(err, datas) {
+        // 取得したユーザ情報を削除
+        datas.forEach(function(data) {
+            userDataStore.remove(data.id);
+        });
+    });
+}
+
+
+
