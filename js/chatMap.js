@@ -36,7 +36,9 @@ function refreshMarker(){
     map.removeMarkers();
     locationDataStore.stream().size(20).sort("desc").next(function(err, datas) {
         datas.forEach(function(data) {
-            renderMarker(data);
+            if(userInfo.groupId == data.value.groupId){
+                renderMarker(data);
+            }
         });
     });
 };
@@ -78,6 +80,7 @@ function getGeolocate(userId){
                 lat : position.coords.latitude,
                 lng : position.coords.longitude,
                 userId : userId,
+                groupId : userInfo.groupId,
                 iconId : userInfo.iconId
             },function(err, pushed){
                 myid = pushed['id'];
@@ -102,6 +105,7 @@ function updateGeolocate(userId){
                 lat : position.coords.latitude,
                 lng : position.coords.longitude,
                 userId : userId,
+                groupId : userInfo.groupId,
                 iconId : userInfo.iconId
             });
         },
