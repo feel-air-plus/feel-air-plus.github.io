@@ -46,7 +46,7 @@ function renderMarker(data){
     var iconList = JSON.parse(localStorage.getItem('iconData'));
     var icon;
     for(var i=0;i<iconList.length;i++){
-        if(userInfo.iconId == iconList[i].value.iconId){
+        if(data.value.iconId == iconList[i].value.iconId){
             icon = iconList[i].value.url;
         }
     }
@@ -77,7 +77,8 @@ function getGeolocate(userId){
             locationDataStore.push({
                 lat : position.coords.latitude,
                 lng : position.coords.longitude,
-                userId : userId
+                userId : userId,
+                iconId : userInfo.iconId
             },function(err, pushed){
                 myid = pushed['id'];
                 // 他者の位置情報を取得してマーカー情報更新
@@ -99,8 +100,9 @@ function updateGeolocate(userId){
         success: function(position) {
             locationDataStore.set(myid, {
                 lat : position.coords.latitude,
-                lon : position.coords.longitude,
-                userId : userId
+                lng : position.coords.longitude,
+                userId : userId,
+                iconId : userInfo.iconId
             });
         },
         error: function(error) {
