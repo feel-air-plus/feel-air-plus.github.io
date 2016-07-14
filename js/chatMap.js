@@ -4,6 +4,8 @@ var chatDataStore = milkcocoa.dataStore("chat");
 var groupDataStore = milkcocoa.dataStore("group");
 var userDataStore = milkcocoa.dataStore("user");
 var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
+var map;
+var myid;
 
 window.onload = function(){
     var userId = userInfo.userId;
@@ -11,7 +13,7 @@ window.onload = function(){
     setIconData();
     var lat = "";
     var lng = "";
-    var map = new GMaps({
+    map = new GMaps({
         div: "#map",//id名
         lat: lat,//緯度
         lng: lng,//経度
@@ -20,51 +22,84 @@ window.onload = function(){
         streetViewControl : false,//ストリートビュー表示
         overviewMapControl: false//???
     });
-    //画面描画時に現在地を取得
-    this.getGeolocate(userId);
-
+    // 画面描画時に現在地を取得
+    getGeolocate(userId);
     setInterval(function(){
-        //10秒ごとに位置情報送信
-        this.getGeolocate(userId);
+        // 10秒ごとに自分の位置情報送信
+        updateGeolocate(userId);
+        // 他者の位置情報を取得してマーカー情報更新
+        refreshMarker();
     },10000);
+};
 
-    locationDataStore.on('send', function(data) {
-        var lat = data.value.lat, lng = data.value.lng, userId = data.value.userId;
-        var iconList = JSON.parse(localStorage.getItem('iconData'));
-        var icon;
-        for(var i=0;i<iconList.length;i++){
-            if(userInfo.iconId == iconList[i].value.iconId){
-                icon = iconList[i].value.url;
-            }
-        }
-        var img = './img/'+icon;
-        map.removeMarkers();
-        map.setCenter(lat, lng);
-        map.addMarker({
-            lat: lat,
-            lng: lng,
-            title: 'I’m here',
-            icon:img,
-            click: function(e) {
-            }
-        });
-        map.drawOverlay({
-            lat: lat,
-            lng: lng,
-            layer: 'overlayLayer',
-            content: '<div id="chatMessage"></div>',
-            verticalAlign: 'top',
-            horizontalAlign: 'center'
+function refreshMarker(){
+    map.removeMarkers();
+    locationDataStore.stream().size(20).sort("desc").next(function(err, datas) {
+        datas.forEach(function(data) {
+            renderMarker(data);
         });
     });
 };
 
+function renderMarker(data){
+    var lat = data.value.lat, lng = data.value.lng, userId = data.value.userId;
+    var iconList = JSON.parse(localStorage.getItem('iconData'));
+    var icon;
+    for(var i=0;i<iconList.length;i++){
+        if(userInfo.iconId == iconList[i].value.iconId){
+            icon = iconList[i].value.url;
+        }
+    }
+    var img = './img/'+icon;
+    map.setCenter(lat, lng);
+    map.addMarker({
+        lat: lat,
+        lng: lng,
+        title: 'I’m here',
+        icon:img,
+        click: function(e) {
+        }
+    });
+    map.drawOverlay({
+        lat: lat,
+        lng: lng,
+        layer: 'overlayLayer',
+        content: '<div id="chatMessage"></div>',
+        verticalAlign: 'top',
+        horizontalAlign: 'center'
+    });
+};
+
+// 自己の位置情報を新規追加する
 function getGeolocate(userId){
     GMaps.geolocate({
         success: function(position) {
-            locationDataStore.send({
+            locationDataStore.push({
                 lat : position.coords.latitude,
                 lng : position.coords.longitude,
+                userId : userId
+            },function(err, pushed){
+                myid = pushed['id'];
+                // 他者の位置情報を取得してマーカー情報更新
+                refreshMarker();
+            });
+        },
+        error: function(error) {
+            console.log('geolocate error '+error.message);
+        },
+        not_supported: function() {
+            console.log("geolocate not support");
+        },
+    });
+};
+
+// 自己の位置情報を更新する
+function updateGeolocate(userId){
+    GMaps.geolocate({
+        success: function(position) {
+            locationDataStore.set(myid, {
+                lat : position.coords.latitude,
+                lon : position.coords.longitude,
                 userId : userId
             });
         },
