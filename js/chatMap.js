@@ -157,7 +157,7 @@ $(function() {
           + '>'
           + '</div>').appendTo($("#chatMessage")).show();
         userMessage.css({
-        })
+        });
         $('.'+user).addClass("overlay");
         $('.'+user).text(user+": "+e.value.message);
     });
