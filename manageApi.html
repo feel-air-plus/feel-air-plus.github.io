@@ -12,20 +12,20 @@
 <style type="text/css">
 	.container h2 {
 	    text-align: center;
-		color:#000000;
-		padding: 15px;
+		color:#812990;
+		padding: 10px;
 		}
 	.container h3 {
 	    text-align: center;
-		color:#19c1df;
+		color:#812990;
 		}
 	.btn-post-message {
 	    text-align: center;
 	    font-size: 15px;
 	    display: block;
-	    margin: 50px auto;
-	    width: 200px;
-	    background: #19c1df;
+	    margin: 20px auto;
+	    width: 220px;
+	    background: #812990;
 	    color: #ffffff;
 	    padding: 7px 20px;
 	    border-radius: 5px;
@@ -33,7 +33,7 @@
 	    -moz-border-radius: 5;
 	}
 	.btn-post-message:hover {
-	    background: #1A99DD;
+	    background: #A63C7A;
 	}
 </style>
 <body>
@@ -43,13 +43,16 @@
 	    <h3>グループデータストア操作</h3>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteGroupData()">グループデータ削徐</button>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="createGroupData()">グループデータ作成</button>
+	    <h3>ユーザデータストア操作</h3>
+	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteUserData()">ユーザデータ削除</button>
 	    <h3>アイコンデータストア操作</h3>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteIconData()">アイコンデータ削除</button>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="createIconData()">アイコンデータ作成</button>
-	    <h3>ユーザデータストア操作</h3>
-	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteUserData()">ユーザデータ削除</button>
-			</div>
-	    </div>
+	    <h3>ロケーションデータストア操作</h3>
+	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteLocationData()">ロケーションデータ削除</button>
+	    <h3>チャットデータストア操作</h3>
+	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteChatData()">チャットデータ削除</button>
+		</div>
 	</div>
 </body>
 </html>

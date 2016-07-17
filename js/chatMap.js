@@ -148,7 +148,7 @@ $(function() {
           $('#'+user).remove();
         }
         $('#'+user).addClass("overlay");
-        $('#'+user).append(user+": "+e.value.message);
+        $('#'+user).append(userInfo.userName+": "+e.value.message);
     });
 
     //チャットデータストア内の項目を一覧で取得

@@ -32,8 +32,6 @@
 }
 
 #chat-frame {
-  min-width: 320px;
-  max-width: 800px;
   margin: auto;
   padding: 1em 2em;
 }

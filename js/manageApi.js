@@ -2,6 +2,8 @@ var milkcocoa = new MilkCocoa("eggipdy4kpy.mlkcca.com");
 var groupDataStore = milkcocoa.dataStore("group");
 var userDataStore = milkcocoa.dataStore("user");
 var iconDataStore = milkcocoa.dataStore("icon");
+var locationDataStore = milkcocoa.dataStore("location");
+var chatDataStore = milkcocoa.dataStore("chat");
 var groupList;
 var iconList;
 
@@ -121,5 +123,24 @@ function deleteUserData(){
     });
 }
 
+function deleteLocationData(){
+    // ユーザデータストア内の項目を一覧で取得
+    locationDataStore.stream().sort("desc").next(function(err, datas) {
+        // 取得したユーザ情報を削除
+        datas.forEach(function(data) {
+            locationDataStore.remove(data.id);
+        });
+    });
+}
+
+function deleteChatData(){
+    // ユーザデータストア内の項目を一覧で取得
+    chatDataStore.stream().sort("desc").next(function(err, datas) {
+        // 取得したユーザ情報を削除
+        datas.forEach(function(data) {
+            chatDataStore.remove(data.id);
+        });
+    });
+}
 
 
