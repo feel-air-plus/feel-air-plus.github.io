@@ -59,14 +59,12 @@ function renderMarker(data){
         lng: lng,
         title: 'I’m here',
         icon:img,
-        click: function(e) {
-        }
     });
     map.drawOverlay({
         lat: lat,
         lng: lng,
         layer: 'overlayLayer',
-        content: '<div id="chatMessage"></div>',
+        content: '<div id="' + String(data.value.userId) + '"></div>',
         verticalAlign: 'top',
         horizontalAlign: 'center'
     });
@@ -126,7 +124,7 @@ function postMessage(){
         return;
     }
     chatDataStore.push(
-        { 
+        {
             userId  : userId,
             groupId : groupId,
             message : chatMessage,
@@ -145,18 +143,12 @@ function postMessage(){
 $(function() {
     chatDataStore.on("push", function(e) {
         var user = e.value.userId;
-        if($('.'+user).text()){
+        if($('#'+user).text()){
             //同一ユーザが既に投稿済みの文言を削除する
-          $('.'+user).remove();
+          $('#'+user).remove();
         }
-        var userMessage = $('<div class='
-          + user
-          + '>'
-          + '</div>').appendTo($("#chatMessage")).show();
-        userMessage.css({
-        });
-        $('.'+user).addClass("overlay");
-        $('.'+user).text(user+": "+e.value.message);
+        $('#'+user).addClass("overlay");
+        $('#'+user).append(user+": "+e.value.message);
     });
 
     //チャットデータストア内の項目を一覧で取得
@@ -164,7 +156,7 @@ $(function() {
         datas.forEach(function(data) {
             var groupId =  userInfo.groupId;
             if(groupId == data.value.groupId){
-                renderMessage(data);                
+                renderMessage(data);
             };
         });
     });
