@@ -17,7 +17,7 @@ window.onload = function(){
         div: "#map",//id名
         lat: lat,//緯度
         lng: lng,//経度
-        zoom: 18,//縮尺
+        zoom: 20,//縮尺
         panControl : false,//???
         streetViewControl : false,//ストリートビュー表示
         overviewMapControl: false//???
