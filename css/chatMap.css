@@ -9,6 +9,7 @@
     -moz-box-shadow:0px 5px 20px #ccc;
     -webkit-box-shadow:0px 5px 20px #ccc;
     box-shadow:0px 5px 20px #ccc;
+    border: 3px solid #812990;
 }
 .overlay{
     position: relative;
@@ -85,7 +86,7 @@ input.input-message::-moz-placeholder {
     font-weight: normal;
 }
 .input-message:focus {
-    border:solid 1px #19c1df;
+    border:solid 1px #c994c7;
 }
 .btn-post-message {
     text-align: center;
