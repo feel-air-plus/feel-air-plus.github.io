@@ -36,7 +36,6 @@
   max-width: 800px;
   margin: auto;
   padding: 1em 2em;
-  background-color: #D8F3F0;
 }
 .chat-talk {
   overflow: hidden;
@@ -58,7 +57,8 @@
   width: auto;
   min-height: 50px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #c994c7;
+  color: #ffffff;
   margin: 0 auto 0 70px;
   padding: 1em;
 }
@@ -78,19 +78,19 @@
   height: 0;
   content: '';
   border: 10px solid transparent;
-  border-right-color: #FFFFFF;
+  border-right-color: #c994c7;
 }
 .chat-talk.mytalk .talk-icon {
   float: right;
 }
 .chat-talk.mytalk .talk-content {
   margin: 0 70px 0 auto;
-  color: #000;
-  background: #78FF6C;
+  color: #ffffff;
+  background: #812990;
 }
 .chat-talk.mytalk .talk-content:before {
   right: -20px;
   left: auto;
   border-color: transparent;
-  border-left-color: #78FF6C;
+  border-left-color: #812990;
 }
