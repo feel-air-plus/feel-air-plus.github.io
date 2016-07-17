@@ -1,8 +1,5 @@
-html{
-    background: #D8F3F0;
-}
-#container{
-    background-color: #D8F3F0;
+.mapArea {
+    padding: 2%;
 }
 #map {
     display:block;
@@ -96,7 +93,7 @@ input.input-message::-moz-placeholder {
     display: block;
     margin: 0 auto;
     width: 80px;
-    background: #19c1df;
+    background: #812990;
     color: #ffffff;
     padding: 7px 20px;
     border-radius: 5px;
@@ -104,5 +101,5 @@ input.input-message::-moz-placeholder {
     -moz-border-radius: 5;
 }
 .btn-post-message:hover {
-    background: #1A99DD;
+    background: #A63C7A;
 }
