@@ -104,9 +104,6 @@ function updateGeolocate(userId){
             locationDataStore.set(myid, {
                 lat : position.coords.latitude,
                 lng : position.coords.longitude,
-                userId : userId,
-                groupId : userInfo.groupId,
-                iconId : userInfo.iconId
             });
         },
         error: function(error) {
