@@ -12,23 +12,27 @@ window.onload = function(){
     groupList = [
         {
             groupId:1,
-            groupName:"group1",
-            count:0
+            groupName:"乃木團",
+            count:0,
+            maxcount:7
         },
         {
             groupId:2,
-            groupName:"group2",
-            count:0
+            groupName:"孤独兄弟",
+            count:0,
+            maxcount:2
         },
         {
             groupId:3,
-            groupName:"group3",
-            count:0
+            groupName:"サンクエトワール",
+            count:0,
+            maxcount:5
         },
         {
             groupId:4,
-            groupName:"group4",
-            count:0
+            groupName:"からあげ姉妹",
+            count:0,
+            maxcount:2
         }
     ];
 
@@ -72,7 +76,8 @@ function createGroupData(){
             {
                 groupId  : groupList[i].groupId,
                 groupName : groupList[i].groupName,
-                count : groupList[i].count
+                count : groupList[i].count,
+                maxcount : groupList[i].maxcount
             },
             function(err, pushed){
                 // console.log("chatMessage pushed");
