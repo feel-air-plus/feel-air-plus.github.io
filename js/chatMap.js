@@ -32,6 +32,11 @@ window.onload = function(){
     },10000);
 };
 
+function renderGroupName(groupName) {
+    $("#groupname").empty();
+    $("#groupname").text(groupName);
+};
+
 function refreshMarker(){
     map.removeMarkers();
     locationDataStore.stream().size(20).sort("desc").next(function(err, datas) {
@@ -164,6 +169,15 @@ $(function() {
     chatDataStore.on("push", function(e) {
         // チャット内容変更のイベントを受け取った際に、チャットメッセージを表示
         renderMessage(e);
+    });
+
+    // グループデータストア内の項目を一覧で取得
+    groupDataStore.stream().sort("desc").next(function(err, datas) {
+        datas.forEach(function(data) {
+            if(userInfo.groupId == data.value.groupId){
+                renderGroupName(data.value.groupName);
+            };
+        });
     });
 
     function renderMessage(msg) {
