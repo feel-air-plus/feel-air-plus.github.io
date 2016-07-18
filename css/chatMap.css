@@ -1,5 +1,7 @@
 .mapArea {
+    width: 95%;
     padding: 2%;
+    border-radius: 2px;
 }
 #map {
     display:block;
@@ -53,9 +55,6 @@
 .wrapper{
     display: -webkit-flex;
     display: flex;
-}
-.mapArea{
-    border-radius: 2px;
 }
 .input-message {
     border: 0;
