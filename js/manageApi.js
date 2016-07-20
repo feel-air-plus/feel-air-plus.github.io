@@ -12,27 +12,27 @@ window.onload = function(){
     groupList = [
         {
             groupId:1,
-            groupName:"乃木團",
+            groupName:"group1",
             count:0,
-            maxcount:7
+            maxcount:4
         },
         {
             groupId:2,
-            groupName:"孤独兄弟",
+            groupName:"group2",
             count:0,
-            maxcount:2
+            maxcount:4
         },
         {
             groupId:3,
-            groupName:"サンクエトワール",
+            groupName:"group3",
             count:0,
-            maxcount:5
+            maxcount:4
         },
         {
             groupId:4,
-            groupName:"からあげ姉妹",
+            groupName:"group4",
             count:0,
-            maxcount:2
+            maxcount:4
         }
     ];
 
