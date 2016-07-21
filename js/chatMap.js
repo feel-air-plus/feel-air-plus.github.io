@@ -145,6 +145,46 @@ function postMessage(){
     )
 };
 
+function clickLogoutButton(){
+    var user = userInfo.userId;
+    var group = userInfo.groupId;
+    sessionStorage.clear('userInfo');
+    // チャット・ロケーション・ユーザ情報をクリア
+    chatDataStore.stream().sort('desc').next(function(err, datas) {
+        datas.forEach(function(data) {
+            if(data.value.userId == user){
+                chatDataStore.remove(data.id);                
+            }
+        });
+    });
+    locationDataStore.stream().sort('desc').next(function(err, datas) {
+        datas.forEach(function(data) {
+            if(data.value.userId == user){
+                locationDataStore.remove(data.id);                
+            }
+        });
+    });
+    groupDataStore.stream().sort('desc').next(function(err, datas) {
+        datas.forEach(function(data) {
+            if(data.value.groupId == group){
+                // 入室上限を-1
+                var num = data.value.count - 1;
+                groupDataStore.set(data.id, { 'count' : num});
+            }
+        });
+    });
+    userDataStore.stream().sort("desc").next(function(err, datas) {
+        datas.forEach(function(data) {
+            if(data.value.userId == user){
+                userDataStore.remove(data.id);                
+            }
+        });
+        // 各種データ削除処理が完了後に、TOPページに遷移する
+        var indexUrl = "index.html";
+        location.href = indexUrl;
+    });
+};
+
 $(function() {
     chatDataStore.on("push", function(e) {
         var user = e.value.userId;

@@ -114,3 +114,22 @@ input.input-message::-moz-placeholder {
 .btn-post-message:hover {
     background: #A63C7A;
 }
+.logout{
+    position: relative;
+}
+.btn-logout{
+    position: absolute;
+    text-align: center;
+    background: #ffffff;
+    color: #812990;
+    margin: 0 auto;
+    width: 15%;
+    right: 2%;
+    top: -25px;
+    border-radius: 5px;
+    -webkit-border-radius: 5;
+    -moz-border-radius: 5;
+}
+.btn-logout:hover {
+    background: #A63C7A;
+}
