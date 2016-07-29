@@ -7,6 +7,15 @@ var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 var map;
 var myid;
 
+window.addEventListener("pageshow", function(){
+    // ページ表示タイミングでの処理
+});
+ 
+window.addEventListener("pagehide", function(){
+    // ページ離脱タイミングでの処理
+    clickLogoutButton();
+});
+
 window.onload = function(){
     var userId = userInfo.userId;
     setUserDataByUserId(userId);
