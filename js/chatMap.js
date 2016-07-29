@@ -13,7 +13,6 @@ window.addEventListener("pageshow", function(){
  
 window.addEventListener("pagehide", function(){
     // ページ離脱タイミングでの処理
-    clickLogoutButton();
 });
 
 window.onload = function(){
