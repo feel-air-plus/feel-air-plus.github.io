@@ -146,6 +146,9 @@ function postMessage(){
 };
 
 function clickLogoutButton(){
+    if(!window.confirm('退室しますがよろしいでしょうか？\nチャット情報はクリアされます。')){
+        return;
+    }
     var user = userInfo.userId;
     var group = userInfo.groupId;
     sessionStorage.clear('userInfo');
