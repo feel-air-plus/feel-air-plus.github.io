@@ -130,6 +130,7 @@ function postMessage(){
     var textArea = document.getElementById("input-message");
     var chatMessage = textArea.value;
     var userId = userInfo.userId;
+    var userName = userInfo.userName;
     var groupId = userInfo.groupId;
     var iconId = userInfo.iconId;
     textArea.value = "";
@@ -139,6 +140,7 @@ function postMessage(){
     chatDataStore.push(
         {
             userId  : userId,
+            userName: userName,
             groupId : groupId,
             message : chatMessage,
             iconId  : iconId,
@@ -245,9 +247,11 @@ $(function() {
         if(msg.value.userId == userInfo.userId){
             var classes = "chat-talk mytalk";
             var target = "myicon";
+            var chatUser = "";
         }else{
             var classes = "chat-talk";
             var target = "tartgeticon";
+            var chatUser = msg.value.userName;
         }
 
         $('#chat-frame').prepend(
@@ -260,6 +264,9 @@ $(function() {
         + 'alt="'
         + target
         + '"/></span>'
+        + '<span class="talk-user">'
+        + chatUser
+        + '</span>'
         + '<span class="talk-content">'
         + msg.value.message
         + '</span></p>');
