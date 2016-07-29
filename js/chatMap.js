@@ -7,14 +7,6 @@ var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 var map;
 var myid;
 
-window.addEventListener("pageshow", function(){
-    // ページ表示タイミングでの処理
-});
- 
-window.addEventListener("pagehide", function(){
-    // ページ離脱タイミングでの処理
-});
-
 window.onload = function(){
     var userId = userInfo.userId;
     setUserDataByUserId(userId);
@@ -162,6 +154,14 @@ function clickLogoutButton(){
     var user = userInfo.userId;
     var group = userInfo.groupId;
     sessionStorage.clear('userInfo');
+    clearUserRelationData(user,group,function(){
+        // 各種データ削除処理が完了後に、TOPページに遷移する
+        var indexUrl = "index.html";
+        location.href = indexUrl;
+    });
+};
+
+function clearUserRelationData(user,group,callback){
     // チャット・ロケーション・ユーザ情報をクリア
     chatDataStore.stream().sort('desc').next(function(err, datas) {
         datas.forEach(function(data) {
@@ -172,7 +172,7 @@ function clickLogoutButton(){
     });
     locationDataStore.stream().sort('desc').next(function(err, datas) {
         datas.forEach(function(data) {
-            if(data.value.userId == user){
+            if(data.value.userId == user){  
                 locationDataStore.remove(data.id);                
             }
         });
@@ -192,9 +192,7 @@ function clickLogoutButton(){
                 userDataStore.remove(data.id);                
             }
         });
-        // 各種データ削除処理が完了後に、TOPページに遷移する
-        var indexUrl = "index.html";
-        location.href = indexUrl;
+        callback();
     });
 };
 
