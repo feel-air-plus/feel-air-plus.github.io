@@ -99,15 +99,16 @@
   height: 0.1px;
 }
 .chat-talk .right{
-  position: relative;
-  top: 40px;
-  left: 318px;
-  width: 34px;
-  text-align: center;
+  display: block;
+  float: right;
+  margin: 40px -31px 0 0;
+  width: 50px;
+  text-align: right;
   font-weight: bold;
 }
 .chat-talk .left{
-  position: relative;
-  top: 40px;
-  right: 35px;
+  display: block;
+  float: left;
+  width: 50px;
+  margin: 40px 0 0 -33px;
 }
