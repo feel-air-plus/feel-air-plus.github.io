@@ -100,6 +100,7 @@
 }
 .chat-talk .right{
   display: block;
+  display: none;
   float: right;
   margin: 40px -31px 0 0;
   width: 50px;
