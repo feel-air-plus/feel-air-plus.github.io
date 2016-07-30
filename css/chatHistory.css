@@ -94,10 +94,20 @@
   border-left-color: #812990;
 }
 .chat-talk .talk-user{
-  position: relative;
-  font-size: 3px;
+  font-size: 10px;
   color: gray;
-  top: 40px;
-  right:35px;
   height: 0.1px;
+}
+.chat-talk .right{
+  position: relative;
+  top: 40px;
+  left: 318px;
+  width: 34px;
+  text-align: center;
+  font-weight: bold;
+}
+.chat-talk .left{
+  position: relative;
+  top: 40px;
+  right: 35px;
 }

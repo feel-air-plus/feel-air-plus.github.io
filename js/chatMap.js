@@ -166,14 +166,14 @@ function clearUserRelationData(user,group,callback){
     chatDataStore.stream().sort('desc').next(function(err, datas) {
         datas.forEach(function(data) {
             if(data.value.userId == user){
-                chatDataStore.remove(data.id);                
+                chatDataStore.remove(data.id);
             }
         });
     });
     locationDataStore.stream().sort('desc').next(function(err, datas) {
         datas.forEach(function(data) {
-            if(data.value.userId == user){  
-                locationDataStore.remove(data.id);                
+            if(data.value.userId == user){
+                locationDataStore.remove(data.id);
             }
         });
     });
@@ -189,7 +189,7 @@ function clearUserRelationData(user,group,callback){
     userDataStore.stream().sort("desc").next(function(err, datas) {
         datas.forEach(function(data) {
             if(data.value.userId == user){
-                userDataStore.remove(data.id);                
+                userDataStore.remove(data.id);
             }
         });
         callback();
@@ -245,11 +245,13 @@ $(function() {
         if(msg.value.userId == userInfo.userId){
             var classes = "chat-talk mytalk";
             var target = "myicon";
-            var chatUser = "";
+            var chatUser = userInfo.userName;
+            var chatUserPosition = "right";
         }else{
             var classes = "chat-talk";
             var target = "tartgeticon";
             var chatUser = msg.value.userName;
+            var chatUserPosition = "left";
         }
 
         $('#chat-frame').prepend(
@@ -262,7 +264,9 @@ $(function() {
         + 'alt="'
         + target
         + '"/></span>'
-        + '<span class="talk-user">'
+        + '<span class="talk-user '
+        + chatUserPosition
+        + '">'
         + chatUser
         + '</span>'
         + '<span class="talk-content">'
