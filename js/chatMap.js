@@ -59,11 +59,38 @@ function renderMarker(data){
     }
     var img = './img/'+icon;
     map.setCenter(lat, lng);
+    var infoWindow = '<p id="infoWindow">チャット投稿がありません。</div>';
     map.addMarker({
         lat: lat,
         lng: lng,
-        title: 'I’m here',
         icon:img,
+        details: {
+            userId:userInfo.userId,
+            userName:userInfo.userName,
+            groupId:userInfo.groupId
+        },
+        infoWindow: {
+          content: infoWindow
+        },
+        // mouseover: function(e){
+        //     this.infoWindow.open(this.map, this);
+        // },
+        // mouseout: function(e){
+        //     this.infoWindow.close();
+        // },
+        click: function(e){
+            var w = this.infoWindow;
+            chatDataStore.stream().size(20).sort("asc").next(function(err, datas) {
+                datas = datas.reverse();
+                for(i=0;i<datas.length;i++){
+                    if(e.details.groupId == datas[i].value.groupId && e.details.userId == datas[i].value.userId){
+                        w.setContent(datas[i].value.message);
+                        return;
+                    }
+                }
+            });
+            this.infoWindow.open(this.map, this);
+        },
     });
     map.drawOverlay({
         lat: lat,
