@@ -79,7 +79,7 @@ function renderMarker(data){
         //     this.infoWindow.close();
         // },
         click: function(e){
-            var w = this.infoWindow;
+            var w = e.infoWindow;
             chatDataStore.stream().size(20).sort("asc").next(function(err, datas) {
                 datas = datas.reverse();
                 for(i=0;i<datas.length;i++){
