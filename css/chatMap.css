@@ -28,7 +28,7 @@ header {
 #infoWindow{
 
 }
-.overlay{
+/*.overlay{
     position: relative;
     display:inline-block;
     text-align:center;
@@ -65,7 +65,7 @@ header {
     border-right-color: #4477aa;
     border-width: 5px;
     margin-top: -5px;
-}
+}*/
 
 .wrapper{
     width: 96%;

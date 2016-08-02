@@ -70,14 +70,8 @@ function renderMarker(data){
             groupId:data.value.groupId
         },
         infoWindow: {
-          content: infoWindow
+            content: infoWindow
         },
-        // mouseover: function(e){
-        //     this.infoWindow.open(this.map, this);
-        // },
-        // mouseout: function(e){
-        //     this.infoWindow.close();
-        // },
         click: function(e){
             var w = e.infoWindow;
             chatDataStore.stream().size(20).sort("asc").next(function(err, datas) {
@@ -92,14 +86,14 @@ function renderMarker(data){
             this.infoWindow.open(this.map, this);
         },
     });
-    map.drawOverlay({
-        lat: lat,
-        lng: lng,
-        layer: 'overlayLayer',
-        content: '<div id="' + String(data.value.userId) + '"></div>',
-        verticalAlign: 'top',
-        horizontalAlign: 'center'
-    });
+    // map.drawOverlay({
+    //     lat: lat,
+    //     lng: lng,
+    //     layer: 'overlayLayer',
+    //     content: '<div id="' + String(data.value.userId) + '"></div>',
+    //     verticalAlign: 'top',
+    //     horizontalAlign: 'center'
+    // });
 };
 
 // 自己の位置情報を新規追加する
@@ -225,15 +219,15 @@ function clearUserRelationData(user,group,callback){
 };
 
 $(function() {
-    chatDataStore.on("push", function(e) {
-        var user = e.value.userId;
-        if($('#'+user).text()){
-            //同一ユーザが既に投稿済みの文言を削除する
-          $('#'+user).remove();
-        }
-        $('#'+user).addClass("overlay");
-        $('#'+user).append(userInfo.userName+": "+e.value.message);
-    });
+    // chatDataStore.on("push", function(e) {
+    //     var user = e.value.userId;
+    //     if($('#'+user).text()){
+    //         //同一ユーザが既に投稿済みの文言を削除する
+    //       $('#'+user).remove();
+    //     }
+    //     $('#'+user).addClass("overlay");
+    //     $('#'+user).append(userInfo.userName+": "+e.value.message);
+    // });
 
     //チャットデータストア内の項目を一覧で取得
     chatDataStore.stream().size(20).sort("desc").next(function(err, datas) {
