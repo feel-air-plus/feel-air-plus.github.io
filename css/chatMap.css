@@ -22,6 +22,12 @@ header {
     height:350px;
     margin:0 auto;
 }
+.gm-style-iw {
+
+}
+#infoWindow{
+
+}
 .overlay{
     position: relative;
     display:inline-block;
