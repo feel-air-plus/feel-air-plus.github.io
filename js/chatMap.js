@@ -65,9 +65,9 @@ function renderMarker(data){
         lng: lng,
         icon:img,
         details: {
-            userId:userInfo.userId,
-            userName:userInfo.userName,
-            groupId:userInfo.groupId
+            userId:data.value.userId,
+            userName:data.value.userName,
+            groupId:data.value.groupId
         },
         infoWindow: {
           content: infoWindow
@@ -111,6 +111,7 @@ function getGeolocate(userId){
                 lng : position.coords.longitude,
                 userId : userId,
                 groupId : userInfo.groupId,
+                userName: userInfo.userName,
                 iconId : userInfo.iconId
             },function(err, pushed){
                 myid = pushed['id'];
