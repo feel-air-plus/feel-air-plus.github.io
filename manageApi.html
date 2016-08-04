@@ -17,7 +17,8 @@
 		}
 	.container h3 {
 	    text-align: center;
-		color:#812990;
+		color:#fff;
+		background: #812990;
 		}
 	.btn-post-message {
 	    text-align: center;
@@ -35,24 +36,94 @@
 	.btn-post-message:hover {
 	    background: #A63C7A;
 	}
+
+	.tbl{
+		width: 80%;
+		border-collapse: collapse;
+		margin:10px auto;
+	}
+	.tbl th{
+		width: 25%;
+		padding: 6px;
+		text-align: center;
+		vertical-align: top;
+		color: #333;
+		background-color: #eee;
+		border: 1px solid #b9b9b9;
+	}
+	.tbl td{
+		padding: 6px;
+		text-align: center;
+		background-color: #fff;
+		border: 1px solid #b9b9b9;
+	}
+	#div_1_user, #div_1_chat  {
+		text-align: center;
+		margin:10px auto;
+	}
+	#div_2_user, #div_2_chat {
+		margin:10px auto;
+		text-align: center;
+		display:none;
+	}
+
 </style>
 <body>
 	<div class="container">
 	    <div class="manageApi">
 	    <h2>管理者画面</h2>
+
+	    <h3>ユーザデータストア操作</h3>
+	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteUserData()">ユーザデータ削除</button>
+
+			<div id="div_1_user">
+			<p><input type="button" value="▼リスト表示" 
+				onClick="document.getElementById('div_2_user').style.display='block';
+				document.getElementById('div_1_user').style.display='none'"></p>
+			</div>
+			<div id="div_2_user">
+			<p><input type="button" value="▲リスト非表示"
+			    onClick="document.getElementById('div_2_user').style.display='none';
+			    document.getElementById('div_1_user').style.display='block'"></p>
+			<p>
+				<table cellpadding="0" cellspacing="0" border="0" class="tbl user-tbl">
+					<tbody><tr><th></th><td></td></tr></tbody>  
+				</table>
+				</p>
+			</div>
 	    <h3>グループデータストア操作</h3>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteGroupData()">グループデータ削徐</button>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="createGroupData()">グループデータ作成</button>
-	    <h3>ユーザデータストア操作</h3>
-	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteUserData()">ユーザデータ削除</button>
+	    
+	    <h3>ロケーションデータストア操作</h3>
+	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteLocationData()">ロケーションデータ削除</button>
+	    
+	    <h3>チャットデータストア操作</h3>
+	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteChatData()">チャットデータ削除</button>
+
+			<div id="div_1_chat">
+			<p><input type="button" value="▼リスト表示" 
+				onClick="document.getElementById('div_2_chat').style.display='block';
+				document.getElementById('div_1_chat').style.display='none'"></p>
+			</div>
+			<div id="div_2_chat">
+			<p><input type="button" value="▲リスト非表示"
+			    onClick="document.getElementById('div_2_chat').style.display='none';
+			    document.getElementById('div_1_chat').style.display='block'"></p>
+			<p>
+				<table cellpadding="0" cellspacing="0" border="0" class="tbl chat-tbl">
+					<tbody><tr><th></th><td></td></tr></tbody>  
+				</table>
+				</p>
+			</div>
+	    
 	    <h3>アイコンデータストア操作</h3>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteIconData()">アイコンデータ削除</button>
 	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="createIconData()">アイコンデータ作成</button>
-	    <h3>ロケーションデータストア操作</h3>
-	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteLocationData()">ロケーションデータ削除</button>
-	    <h3>チャットデータストア操作</h3>
-	        <button data-role="button" class="btn-post-message" data-ajax="false" onclick="deleteChatData()">チャットデータ削除</button>
 		</div>
 	</div>
 </body>
 </html>
+
+
+

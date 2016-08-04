@@ -6,6 +6,8 @@ var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
 var groupList;
 var iconList;
+var chatList = [];
+var userList = [];
 
 window.onload = function(){
 
@@ -58,7 +60,76 @@ window.onload = function(){
             url:"tanuki.png"
         }
     ];
+
+    getChatData(function(){
+        renderChat();
+    })
+    getUserData(function(){
+        renderUser();
+    })
 };
+
+function getChatData(callback){
+    chatDataStore.stream().sort("desc").next(function(err, datas) {
+        // 取得したユーザ情報を削除
+        datas.forEach(function(data) {
+            chatList.push(data);
+        });
+        callback();
+    });
+}
+
+function getUserData(callback){
+    userDataStore.stream().sort("desc").next(function(err, datas) {
+        // 取得したユーザ情報を削除
+        datas.forEach(function(data) {
+            userList.push(data);
+        });
+        callback();
+    });
+}
+
+function renderChat(){
+    $("table.chat-tbl tbody").html("");  
+    $('<tr>'+ 
+      '<th>'+"ユーザ名"+'</th>'+  
+      '<th>'+"チャット内容"+'</th>'+ 
+      '</tr>').appendTo('table.chat-tbl tbody');
+    for(var index in chatList){
+        var chat = chatList.value;
+        $('<tr>'+ 
+          '<td class="label">' +
+              chatList[index].value.userName + 
+          '</td>'+
+          '<td class="label">' +
+              chatList[index].value.message + 
+          '</td>'+ 
+          '</tr>').appendTo('table.chat-tbl tbody');
+    }
+}
+
+function renderUser(){
+    $("table.user-tbl tbody").html("");  
+    $('<tr>'+ 
+      '<th>'+"ユーザID"+'</th>'+  
+      '<th>'+"ユーザ名"+'</th>'+  
+      '<th>'+"グループID"+'</th>'+ 
+      '</tr>').appendTo('table.user-tbl tbody');
+    for(var index in userList){
+        var chat = userList.value;
+        $('<tr>'+ 
+          '<td class="label">' +
+              userList[index].value.userId + 
+          '</td>'+
+          '<td class="label">' +
+              userList[index].value.userName + 
+          '</td>'+
+          '<td class="label">' +
+              userList[index].value.groupId + 
+          '</td>'+ 
+          '</tr>').appendTo('table.user-tbl tbody');
+    }
+}
 
 function deleteGroupData(){
 
