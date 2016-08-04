@@ -94,6 +94,7 @@ function renderChat(){
     $('<tr>'+ 
       '<th>'+"ユーザ名"+'</th>'+  
       '<th>'+"チャット内容"+'</th>'+ 
+      '<th>'+"タイムスタンプ"+'</th>'+ 
       '</tr>').appendTo('table.chat-tbl tbody');
     for(var index in chatList){
         var chat = chatList.value;
@@ -104,6 +105,9 @@ function renderChat(){
           '<td class="label">' +
               chatList[index].value.message + 
           '</td>'+ 
+          '<td class="label">' +
+              dateFormatUnixToDate(chatList[index].timestamp) + 
+          '</td>'+
           '</tr>').appendTo('table.chat-tbl tbody');
     }
 }
@@ -114,6 +118,7 @@ function renderUser(){
       '<th>'+"ユーザID"+'</th>'+  
       '<th>'+"ユーザ名"+'</th>'+  
       '<th>'+"グループID"+'</th>'+ 
+      '<th>'+"タイムスタンプ"+'</th>'+ 
       '</tr>').appendTo('table.user-tbl tbody');
     for(var index in userList){
         var chat = userList.value;
@@ -127,6 +132,9 @@ function renderUser(){
           '<td class="label">' +
               userList[index].value.groupId + 
           '</td>'+ 
+          '<td class="label">' +
+              dateFormatUnixToDate(userList[index].timestamp) + 
+          '</td>'+
           '</tr>').appendTo('table.user-tbl tbody');
     }
 }
@@ -219,4 +227,13 @@ function deleteChatData(){
     });
 }
 
-
+function dateFormatUnixToDate(date){
+    var d = new Date(date);
+    var year = d.getFullYear();
+    var month = d.getMonth() + 1;
+    var day   = d.getDate();
+    var hour  = ( d.getHours()   < 10 ) ? '0' + d.getHours()   : d.getHours();
+    var min   = ( d.getMinutes() < 10 ) ? '0' + d.getMinutes() : d.getMinutes();
+    var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();
+    return year + '/'  + month + '/' + day + ' ' + hour + ':' + min + ':' + sec;
+};
