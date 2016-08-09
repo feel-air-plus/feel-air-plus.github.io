@@ -4,6 +4,7 @@ var userDataStore = milkcocoa.dataStore("user");
 var iconDataStore = milkcocoa.dataStore("icon");
 var locationDataStore = milkcocoa.dataStore("location");
 var chatDataStore = milkcocoa.dataStore("chat");
+var mapDataStore = milkcocoa.dataStore("map");
 var groupList;
 var iconList;
 var chatList = [];
@@ -237,3 +238,20 @@ function dateFormatUnixToDate(date){
     var sec   = ( d.getSeconds() < 10 ) ? '0' + d.getSeconds() : d.getSeconds();
     return year + '/'  + month + '/' + day + ' ' + hour + ':' + min + ':' + sec;
 };
+
+function setMapData(){
+    var zoom = $(".input_map_zoom")[0].value;
+    mapDataStore.stream().sort("desc").next(function(err, datas) {
+        if(datas.length){
+            mapDataStore.set(datas[0].id, {
+                zoom  : zoom
+            });
+        }else{
+            mapDataStore.push(            
+            {
+                zoom  : zoom
+            })
+        }
+    })
+}
+    

@@ -6,6 +6,7 @@ var userDataStore = milkcocoa.dataStore("user");
 var userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 var map;
 var myid;
+var zoom = 20;
 
 window.onload = function(){
     var userId = userInfo.userId;
@@ -13,11 +14,12 @@ window.onload = function(){
     setIconData();
     var lat = "";
     var lng = "";
+    zoom = Number(userInfo.zoom);
     map = new GMaps({
         div: "#map",//id名
         lat: lat,//緯度
         lng: lng,//経度
-        zoom: 20,//縮尺
+        zoom: zoom,//縮尺
         panControl : false,//???
         streetViewControl : false,//ストリートビュー表示
         overviewMapControl: false//???
