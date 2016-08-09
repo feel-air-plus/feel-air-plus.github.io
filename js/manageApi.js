@@ -254,4 +254,7 @@ function setMapData(){
         }
     })
 }
-    
+function transitionIndex(){
+    var indexUrl = "index.html";
+    location.href = indexUrl;
+}
