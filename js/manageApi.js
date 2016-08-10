@@ -70,6 +70,7 @@ window.onload = function(){
     })
 };
 
+// チャット情報をリストに格納(管理者画面に表示用)
 function getChatData(callback){
     chatDataStore.stream().sort("desc").next(function(err, datas) {
         // 取得したユーザ情報を削除
@@ -80,6 +81,7 @@ function getChatData(callback){
     });
 }
 
+// ユーザ情報をリストに格納(管理者画面に表示用)
 function getUserData(callback){
     userDataStore.stream().sort("desc").next(function(err, datas) {
         // 取得したユーザ情報を削除
@@ -90,6 +92,7 @@ function getUserData(callback){
     });
 }
 
+// チャット一覧を管理者画面に表示
 function renderChat(){
     $("table.chat-tbl tbody").html("");  
     $('<tr>'+ 
@@ -113,6 +116,7 @@ function renderChat(){
     }
 }
 
+// ユーザ一覧を管理者画面に表示
 function renderUser(){
     $("table.user-tbl tbody").html("");  
     $('<tr>'+ 
@@ -140,8 +144,8 @@ function renderUser(){
     }
 }
 
+// グループデータ一覧をデータストアより削除
 function deleteGroupData(){
-
     // グループデータストア内の項目を一覧で取得
     groupDataStore.stream().sort("desc").next(function(err, datas) {
         // 取得したグループ情報を削除
@@ -150,6 +154,8 @@ function deleteGroupData(){
         });
     });
 }
+
+// グループ一覧をデータストアに作成
 function createGroupData(){
     for(i=0;i<groupList.length;i++){
         groupDataStore.push(
@@ -169,8 +175,8 @@ function createGroupData(){
     }
 }
 
+// アイコンデータ一覧をデータストアから削除
 function deleteIconData(){
-
    // アイコンデータストア内の項目を一覧で取得
     iconDataStore.stream().sort("desc").next(function(err, datas) {
         // 取得したアイコン情報を削除
@@ -180,6 +186,7 @@ function deleteIconData(){
     });
 };
 
+// アイコン一覧をデータストアに作成
 function createIconData(){
     for(i=0;i<iconList.length;i++){
         iconDataStore.push(
@@ -198,6 +205,7 @@ function createIconData(){
     }
 }
 
+// ユーザ一覧をデータストアから削除
 function deleteUserData(){
     // ユーザデータストア内の項目を一覧で取得
     userDataStore.stream().sort("desc").next(function(err, datas) {
@@ -208,6 +216,7 @@ function deleteUserData(){
     });
 }
 
+// 位置情報をデータストアから削除
 function deleteLocationData(){
     // ユーザデータストア内の項目を一覧で取得
     locationDataStore.stream().sort("desc").next(function(err, datas) {
@@ -218,6 +227,7 @@ function deleteLocationData(){
     });
 }
 
+// チャット情報をデータストアから削除
 function deleteChatData(){
     // ユーザデータストア内の項目を一覧で取得
     chatDataStore.stream().sort("desc").next(function(err, datas) {
@@ -228,6 +238,7 @@ function deleteChatData(){
     });
 }
 
+// Unix日付からDate型に変換
 function dateFormatUnixToDate(date){
     var d = new Date(date);
     var year = d.getFullYear();
@@ -239,6 +250,7 @@ function dateFormatUnixToDate(date){
     return year + '/'  + month + '/' + day + ' ' + hour + ':' + min + ':' + sec;
 };
 
+// 入力されたマップの拡大(縮小)率をデータストアに反映
 function setMapData(){
     var zoom = $(".input_map_zoom")[0].value;
     mapDataStore.stream().sort("desc").next(function(err, datas) {
@@ -254,6 +266,8 @@ function setMapData(){
         }
     })
 }
+
+// TOPページへの画面遷移
 function transitionIndex(){
     var indexUrl = "index.html";
     location.href = indexUrl;

@@ -8,12 +8,14 @@ var map;
 var myid;
 var zoom = 20;
 
+// 初期表示時の処理
 window.onload = function(){
     var userId = userInfo.userId;
     setUserDataByUserId(userId);
     setIconData();
     var lat = "";
     var lng = "";
+    // 地図の拡大率を設定
     zoom = Number(userInfo.zoom);
     map = new GMaps({
         div: "#map",//id名
@@ -34,11 +36,13 @@ window.onload = function(){
     },10000);
 };
 
+// ログインしているグループ名称を画面上に表示
 function renderGroupName(groupName) {
     $("#groupname").empty();
     $("#groupname").text(groupName);
 };
 
+// マーカー情報更新
 function refreshMarker(){
     map.removeMarkers();
     locationDataStore.stream().size(20).sort("desc").next(function(err, datas) {
@@ -50,6 +54,7 @@ function refreshMarker(){
     });
 };
 
+// マーカー情報画面反映
 function renderMarker(data){
     var lat = data.value.lat, lng = data.value.lng, userId = data.value.userId;
     var iconList = JSON.parse(localStorage.getItem('iconData'));
@@ -88,14 +93,6 @@ function renderMarker(data){
             this.infoWindow.open(this.map, this);
         },
     });
-    // map.drawOverlay({
-    //     lat: lat,
-    //     lng: lng,
-    //     layer: 'overlayLayer',
-    //     content: '<div id="' + String(data.value.userId) + '"></div>',
-    //     verticalAlign: 'top',
-    //     horizontalAlign: 'center'
-    // });
 };
 
 // 自己の位置情報を新規追加する
@@ -142,6 +139,7 @@ function updateGeolocate(userId){
     });
 };
 
+// 入力されたチャット内容をデータストアに反映
 function postMessage(){
     var textArea = document.getElementById("input-message");
     var chatMessage = textArea.value;
@@ -171,6 +169,7 @@ function postMessage(){
     )
 };
 
+// 退室ボタン押下時の処理
 function clickLogoutButton(){
     if(!window.confirm('退室しますがよろしいでしょうか？\nチャット情報はクリアされます。')){
         return;
@@ -185,6 +184,7 @@ function clickLogoutButton(){
     });
 };
 
+// 退室ボタン押下時の各種データストアクリア処理
 function clearUserRelationData(user,group,callback){
     // チャット・ロケーション・ユーザ情報をクリア
     chatDataStore.stream().sort('desc').next(function(err, datas) {
@@ -221,16 +221,6 @@ function clearUserRelationData(user,group,callback){
 };
 
 $(function() {
-    // chatDataStore.on("push", function(e) {
-    //     var user = e.value.userId;
-    //     if($('#'+user).text()){
-    //         //同一ユーザが既に投稿済みの文言を削除する
-    //       $('#'+user).remove();
-    //     }
-    //     $('#'+user).addClass("overlay");
-    //     $('#'+user).append(userInfo.userName+": "+e.value.message);
-    // });
-
     //チャットデータストア内の項目を一覧で取得
     chatDataStore.stream().size(20).sort("desc").next(function(err, datas) {
         datas.forEach(function(data) {
@@ -241,8 +231,8 @@ $(function() {
         });
     });
 
+    // チャット内容変更のイベントを受け取った際に、チャットメッセージを表示
     chatDataStore.on("push", function(e) {
-        // チャット内容変更のイベントを受け取った際に、チャットメッセージを表示
         renderMessage(e);
     });
 
@@ -255,9 +245,9 @@ $(function() {
         });
     });
 
+    //取得したチャットデータストア内の項目一覧を画面上に表示
+    // ユーザが入室しているグループのチャット情報のみ表示させる
     function renderMessage(msg) {
-        //取得したチャットデータストア内の項目一覧を画面上に表示
-        // ユーザが入室しているグループのチャット情報のみ表示させる
         var iconList = JSON.parse(localStorage.getItem('iconData'));
         var icon;
         for(var i=0;i<iconList.length;i++){
